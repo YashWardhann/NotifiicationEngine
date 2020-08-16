@@ -24,7 +24,7 @@ router.post("/", (req, res) => {
     }
     const params = {
         Protocol: "http",
-        TopicArn: "arn:aws:sns:us-east-1:716163158234:test",
+        TopicArn: process.env.EVENT_TOPIC_ARN,
         Endpoint: `http://6c61a3e86208.ngrok.io/api/subscribers/${req.body.endpoint}`,
     };
 

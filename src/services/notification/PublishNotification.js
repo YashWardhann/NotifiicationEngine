@@ -4,7 +4,7 @@ const PublishNotification = (notification) => {
     return new Promise((resolve, reject) => {
         const params = {
             Message: notification.message, 
-            TopicArn: 'arn:aws:sns:us-east-1:716163158234:test'
+            TopicArn: process.env.EVENT_TOPIC_ARN
         };
     
         const publishMessagePromise = SNS.publish(params).promise();
