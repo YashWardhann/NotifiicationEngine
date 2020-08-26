@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+import mongoose from "mongoose";
 import apiRouter from "./api/api.router.js";
 
 const app = express(); 
@@ -17,8 +18,16 @@ app.use(bodyParser.json());
 
 app.use((req, res, next) => {
     console.log(`Incoming ${req.method} request to ${req.url}`);
+    console.log(req.body.payload.payment.entity.notes);
     next();
 });
+
+mongoose.connect("mongodb://admin:admin1234@ds141238.mlab.com:41238/lc_hub", {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true
+})
+.then(() => console.log("Connected to mongodb!"))
+.catch(e => console.error(e));
 
 app.use("/api", apiRouter);
 
