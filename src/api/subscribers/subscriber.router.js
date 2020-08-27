@@ -38,21 +38,7 @@ router.post("/", (req, res) => {
     }
 
     console.log(process.env.EVENT_TOPIC_ARN);
-    const params = {
-        Protocol: "http",
-        TopicArn: process.env.EVENT_TOPIC_ARN,
-        Endpoint: `http://1bd20dad18a8.ngrok.io/${req.body.endpoint}`,
-    };
-
-    console.log(params);
-
-    SNS.subscribe(params, async (err, data) => {
-        if (err) {
-            console.log(err);
-            return res.status(400).json({ error: err });
-        }
-        else return res.status(200).json({ data: data });
-    });
+    
 });
 
 

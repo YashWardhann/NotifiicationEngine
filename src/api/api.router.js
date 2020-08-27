@@ -8,11 +8,13 @@ import CreateNotification from "./../services/notification/CreateNotification.js
 import PublishNotification from "./../services/notification/PublishNotification.js";
 import CreateEndpoint from "./../services/endpoints/CreateEndpoint.js";
 import ApiError from "../utils/ApiError.js";
+import deviceEndpoint from "../models/DeviceEndpoint.model.js";
 
 const router = Router();
 
 
-router.use("/endpoint", async (req, res) => {
+// Create a new endpoint
+router.post("/endpoint", async (req, res) => {
     try {
         const endpointInfo = {
             deviceToken: req.body.deviceToken, 
@@ -41,12 +43,17 @@ router.post("/", async (req, res, next) => {
         // Build the parameters for the notification 
         const notification = {
             type: notificationType, 
-            message: notificationMessage,
+            message: {
+                body: req.body.message, 
+                title: req.body.title
+            },
             customerID: customerID
         };
 
         // Create a new notification 
         const notificationData = await CreateNotification(notification);
+
+        console.log(notificationData);
         
         // Publish the notification to a SNS topic.
         const publishedData = await PublishNotification(notificationData);

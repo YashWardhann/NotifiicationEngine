@@ -9,12 +9,21 @@ const CreateNotification =  ({type, message, customerID }) => {
             }
 
             // Get the device endpoint data 
-            const endpointData = await DeviceEndpoint.findOne({ customerID: customerID });
+            const deviceDetails = await DeviceEndpoint.findOne({ customerID: customerID });
 
-            if (!endpointData) {
+            if (!deviceDetails) {
                 throw new ApiError(404, `Customer not found. (ID: ${customerID})`);
             }
-            return resolve({ type: type, message: message, timestamp: Date.now(), endpointData: endpointData });
+
+            const notificationData = {
+                type: type, 
+                title: message.title,
+                body: message.body, 
+                timestamp: Date.now(), 
+                deviceDetails: deviceDetails 
+            }; 
+
+            return resolve(notificationData);
         } catch (e) {
             return reject(e);
         }
