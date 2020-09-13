@@ -4,8 +4,8 @@ const PublishNotification = (notification) => {
     return new Promise((resolve, reject) => {
         // Build the notification 
         const notificationMessage = JSON.stringify({
-            "title": notification.body, 
-            "body": notification.title          
+            "title": notification.title, 
+            "body": notification.body         
         });
 
         const notificationPayload = JSON.stringify({
