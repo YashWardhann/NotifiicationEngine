@@ -4,15 +4,17 @@ const PublishNotification = (notification) => {
     return new Promise((resolve, reject) => {
         // Build the notification 
         const notificationMessage = JSON.stringify({
-            "GCM": {
-                "notification": {
-                    "title": notification.title, 
-                    "body": notification.body
-                }
-            }
+            "title": notification.body, 
+            "body": notification.title          
         });
+
+        const notificationPayload = JSON.stringify({
+            "GCM": `{ \"notification\": ${notificationMessage} }`
+        });
+
         const params = {
-            Message: notificationMessage, 
+            Message: notificationPayload, 
+            MessageStructure: "json",
             TargetArn: notification.deviceDetails.endpointArn
         };
     

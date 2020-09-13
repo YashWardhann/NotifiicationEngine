@@ -13,7 +13,7 @@ import deviceEndpoint from "../models/DeviceEndpoint.model.js";
 const router = Router();
 
 
-// Create a new endpoint
+// Create a new endpoint    
 router.post("/endpoint", async (req, res) => {
     try {
         const endpointInfo = {

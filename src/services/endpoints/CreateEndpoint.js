@@ -8,7 +8,7 @@ const CreateEndpoint = ({ deviceToken, customerID }) => {
         try {
             // Build a new endpoint 
             const endpointParams = {
-                PlatformApplicationArn: "arn:aws:sns:ap-south-1:716163158234:app/GCM/spiderg-dev",
+                PlatformApplicationArn: process.env.APPLICATION_ARN,
                 Token: deviceToken,
                 CustomUserData: customerID
             };
@@ -29,7 +29,7 @@ const CreateEndpoint = ({ deviceToken, customerID }) => {
 
                 // Subscribe to the topic in SNS 
                 await CreateMobileSubscription(endpointData.endpointArn);
-                
+                    
                 return resolve(data);
             })
         } catch (e) {
